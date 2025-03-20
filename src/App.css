@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Mulish:ital,wght@1,800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+:root {
+  --primary_color: #FF1457;
+  --body_bg_color: #2B2C30;
+  --input_bg: #35313B;
+  --locate_btn_bg: #613C4C;
+  --localization_container_bg: #35313B;
+  --white: #FFFFFF;
+
+  --title_font_family: 'Mulish', sans-serif;
+  --body_font_family: 'Poppins', sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: var(--body_font_family);
+}
+
+body {
+  min-height: 100vh;
+  background-color: var(--body_bg_color);
+}
