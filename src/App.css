@@ -8,6 +8,10 @@
   --locate_btn_bg: #613C4C;
   --localization_container_bg: #35313B;
   --white: #FFFFFF;
+  --containers_bg_color: #453745;
+
+  --container_border_radius: 40px;
+  --container_padding: 2rem;
 
   --title_font_family: 'Mulish', sans-serif;
   --body_font_family: 'Poppins', sans-serif;
@@ -23,4 +27,136 @@
 body {
   min-height: 100vh;
   background-color: var(--body_bg_color);
+  padding: 2rem;
+}
+
+h1 {
+  font-family: var(--title_font_family);
+  font-size: clamp(3rem, 5vw + 2rem, 6rem);
+  color: var(--primary_color);
+}
+
+main {
+  margin-top: 5rem;
+  height: 38rem;
+  display: grid;
+  grid-template-rows: 175px 425px;
+  gap: 1rem;
+}
+
+.main_infos {
+  grid-row-start: 1;
+  grid-row-end: 3;
+  background-color: var(--containers_bg_color);
+  border-radius: var(--container_border_radius);
+  padding: var(--container_padding);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.main_infos div {
+  padding: 1rem;
+  background-color: var(--localization_container_bg);
+  width: 100%;
+  height: calc(425px - 2rem);
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.main_infos h2 {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: var(--white);
+}
+
+.main_infos svg {
+  color: var(--primary_color);
+}
+
+.search_container {
+  grid-row-start: 1;
+  grid-row-end: 2;
+  background-color: var(--containers_bg_color);
+  border-radius: var(--container_border_radius);
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.search_container input {
+  border-radius: var(--container_border_radius);
+  width: 50%;
+  padding: 1rem;
+  height: 3.5rem;
+  outline: none;
+  border: none;
+  color: var(--primary_color);
+  background-color: var(--input_bg);
+  font-size: 1rem;
+}
+
+.search_container input::placeholder {
+  color: var(--primary_color);
+}
+
+.search_container button {
+  height: 3.5rem;
+  width: 45%;
+  border-radius: var(--container_border_radius);
+  border: none;
+  background-color: var(--locate_btn_bg);
+  color: var(--primary_color);
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: .4s;
+}
+
+.search_container button:hover {
+  background-color: var(--primary_color);
+  color: var(--localization_container_bg);
+}
+
+.security_infos {
+  background-color: var(--containers_bg_color);
+  border-radius: var(--container_border_radius);
+  padding: var(--container_padding);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  color: var(--white);
+}
+
+@media screen and (max-width: 992px) {
+  body {
+    padding: 0 !important;
+  }
+
+  h1 {
+    text-align: center;
+  }
+
+  main {
+    display: flex !important;
+    flex-direction: column;
+  }
+
+  main section,
+  form {
+    width: 100% !important;
+  }
+
+  input,
+  button {
+    width: 100% !important;
+  }
+
+  button {
+    margin-top: 1rem;
+  }
 }
