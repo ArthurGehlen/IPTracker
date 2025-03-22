@@ -25,7 +25,7 @@ function App() {
   }
 
   const fetch_data = (ip) => {
-    fetch(`http://api.ipquery.io${ip}?format=json`)
+    fetch(`https://api.ipquery.io${ip}?format=json`)
       .then((res) => res.json())
       .then((data) => {
         setIP(data.ip)
