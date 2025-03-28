@@ -50,7 +50,8 @@ function App() {
 
   const handle_submit = (e) => {
     e.preventDefault()
-    fetch_data(searchIP)
+    fetch_data(`/${searchIP}`)
+    setSearchIP('')
   }
 
   return (
@@ -76,7 +77,8 @@ function App() {
           <input
             type="text"
             placeholder="Escreva o endereço"
-            onChange={(e) => setSearchIP(`/${e.target.value}`)}
+            value={searchIP}
+            onChange={(e) => setSearchIP(e.target.value)}
             required />
           <button type="submit">Localizar Ip</button>
         </form>
