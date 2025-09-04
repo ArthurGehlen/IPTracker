@@ -132,6 +132,10 @@ main {
   color: var(--white);
 }
 
+.local_infos {
+  margin-top: 1rem;
+}
+
 @media screen and (max-width: 992px) {
   body {
     padding: 0 !important;
