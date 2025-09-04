@@ -5,51 +5,54 @@ import Info from "./components/Info";
 import "./App.css";
 
 function App() {
-  const [searchIP, setSearchIP] = useState("");
-  const [IP, setIP] = useState("");
-  const [domain, setDomain] = useState("");
-  const [name, setName] = useState("");
-  const [route, setRoute] = useState("");
-  const [ISP, setISP] = useState("");
-  const [city, setCity] = useState("");
-  const [state, setState] = useState("");
-  const [country, setCountry] = useState("");
-  const [timezone, setTimezone] = useState("");
-  const [postalCode, setPostalCode] = useState("");
-  const [latitude, setLatitude] = useState("");
-  const [longitude, setLongitude] = useState("");
-  const [VPN, setVPN] = useState(false);
-  const [TOR, setTOR] = useState(false);
-  const [proxy, setProxy] = useState(false);
+  const [searchIp, setSearchIp] = useState("");
+  const [data, setData] = useState({
+    ip: "",
+    domain: "",
+    orgName: "",
+    route: "",
+    isp: "",
+    city: "",
+    region: "",
+    country: "",
+    timezone: "",
+    postalCode: "",
+    latitude: "",
+    longitude: "",
+    vpn: false,
+    tor: false,
+    proxy: false,
+  });
 
   const security_check = (value) => {
-    return value ? "✅ Detectado" : "❌ Não detectado";
+    return value ? "✅ Detected" : "❌ Not detected";
   };
 
-  const fetch_data = (ip) => {
+  const fetch_data = (ip_param) => {
     fetch(
       `https://geo.ipify.org/api/v2/country,city,vpn?apiKey=${
-        import.meta.env.VITE_API_PASS
-      }${ip}`
+        import.meta.env.VITE_API_KEY
+      }${ip_param}`
     )
       .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        setIP(data.ip);
-        setISP(data.isp);
-        setDomain(data.as["domain"]);
-        setName(data.as["name"]);
-        setRoute(data.as["route"]);
-        setCountry(data.location["country"]);
-        setState(data.location["region"]);
-        setCity(data.location["city"]);
-        setLatitude(data.location["lat"]);
-        setLongitude(data.location["lng"]);
-        setTimezone(data.location["timezone"]);
-        setPostalCode(data.location["postalCode"]);
-        setVPN(data.proxy["is_vpn"]);
-        setTOR(data.proxy["is_tor"]);
-        setProxy(data.proxy["is_proxy"]);
+      .then((json_data) => {
+        setData({
+          ip: json_data.ip,
+          isp: json_data.isp,
+          domain: json_data.as["domain"],
+          orgName: json_data.as["name"],
+          route: json_data.as["route"],
+          country: json_data.location["country"],
+          region: json_data.location["region"],
+          city: json_data.location["city"],
+          latitude: json_data.location["lat"],
+          longitude: json_data.location["lng"],
+          timezone: json_data.location["timezone"],
+          postalCode: json_data.location["postalCode"],
+          vpn: json_data.proxy["is_vpn"],
+          tor: json_data.proxy["is_tor"],
+          proxy: json_data.proxy["is_proxy"],
+        });
       });
   };
 
@@ -59,53 +62,62 @@ function App() {
 
   const handle_submit = (e) => {
     e.preventDefault();
-    fetch_data(`&ipAddress=${searchIP}`);
-    setSearchIP("");
+    fetch_data(`&ipAddress=${searchIp}`);
+    setSearchIp("");
   };
 
   return (
     <>
-      <h1>IPTracker</h1>
+      <h1>IP Tracker</h1>
 
       <main>
         <section className="main_infos">
-          <Info label="IP" value={IP || "Não Encontrado"} />
-          <Info label="Rota" value={route || "Não Encontrado"} />
-          <Info label="Nome" value={name || "Não Encontrado"} />
-          <Info label="Domínio" value={domain || "Não Encontrado"} />
-          <Info label="Provedor de Internet (ISP)" value={ISP || "Não Encontrado"} />
+          <Info label="IP" value={data.ip || "Não Encontrado"} />
+          <Info label="Route" value={data.route || "Não Encontrado"} />
+          <Info
+            label="Organization Name"
+            value={data.orgName || "Não Encontrado"}
+          />
+          <Info label="Domain" value={data.domain || "Não Encontrado"} />
+          <Info
+            label="Internet Service Provider (ISP)"
+            value={data.isp || "Não Encontrado"}
+          />
           <div className="local_infos">
             <h2>
-              Localização <FaLocationDot />
+              Location <FaLocationDot />
             </h2>
 
-            <Info label="País" value={country || "Não Encontrado"} />
-            <Info label="Estado" value={state || "Não Encontrado"} />
-            <Info label="Cidade" value={city || "Não Encontrado"} />
+            <Info label="Country" value={data.country || "Não Encontrado"} />
+            <Info label="Region" value={data.region || "Não Encontrado"} />
+            <Info label="City" value={data.city || "Não Encontrado"} />
             <Info
-              label="Latitude e Longitude"
-              value={`${latitude} ${longitude}` || "Não Encontrado"}
+              label="Latitude / Longitude"
+              value={`${data.latitude} ${data.longitude}` || "Não Encontrado"}
             />
-            <Info label="Fuso Horário" value={timezone || "Não Encontrado"} />
-            <Info label="Código Postal" value={postalCode || "Não Encontrado"} />
+            <Info label="Timezone" value={data.timezone || "Não Encontrado"} />
+            <Info
+              label="Postal Code"
+              value={data.postalCode || "Não Encontrado"}
+            />
           </div>
         </section>
         <form className="search_container" onSubmit={handle_submit}>
           <input
             type="text"
-            placeholder="Escreva o endereço"
-            value={searchIP}
-            onChange={(e) => setSearchIP(e.target.value)}
+            placeholder="Enter IP address"
+            value={searchIp}
+            onChange={(e) => setSearchIp(e.target.value)}
             required
           />
-          <button type="submit">Localizar Ip</button>
+          <button type="submit">Find IP</button>
         </form>
         <section className="security_infos">
-          <h2>Status de Segurança do IP</h2>
+          <h2>IP Security Status</h2>
 
-          <Info label="VPN" value={security_check(VPN)} />
-          <Info label="TOR" value={security_check(TOR)} />
-          <Info label="Proxy" value={security_check(proxy)} />
+          <Info label="VPN" value={security_check(data.vpn)} />
+          <Info label="TOR" value={security_check(data.tor)} />
+          <Info label="Proxy" value={security_check(data.proxy)} />
         </section>
       </main>
     </>
