@@ -25,7 +25,7 @@ function App() {
   });
 
   const security_check = (value) => {
-    return value ? "✅ Detected" : "❌ Not detected";
+    return value ? "✅ Detectado" : "❌ Não detectado";
   };
 
   const fetch_data = (ip_param) => {
@@ -72,53 +72,59 @@ function App() {
 
       <main>
         <section className="main_infos">
-          <Info label="IP" value={data.ip || "Não Encontrado"} />
-          <Info label="Route" value={data.route || "Não Encontrado"} />
+          <Info label="IP" value={data.ip || "Não encontrado"} />
+          <Info label="Rota" value={data.route || "Não encontrado"} />
           <Info
-            label="Organization Name"
-            value={data.orgName || "Não Encontrado"}
+            label="Nome da Organização"
+            value={data.orgName || "Não encontrado"}
           />
-          <Info label="Domain" value={data.domain || "Não Encontrado"} />
+          <Info label="Domínio" value={data.domain || "Não encontrado"} />
           <Info
-            label="Internet Service Provider (ISP)"
-            value={data.isp || "Não Encontrado"}
+            label="Provedor de Internet (ISP)"
+            value={data.isp || "Não encontrado"}
           />
+
           <div className="local_infos">
             <h2>
-              Location <FaLocationDot />
+              Localização <FaLocationDot />
             </h2>
-
-            <Info label="Country" value={data.country || "Não Encontrado"} />
-            <Info label="Region" value={data.region || "Não Encontrado"} />
-            <Info label="City" value={data.city || "Não Encontrado"} />
+            <Info label="País" value={data.country || "Não encontrado"} />
+            <Info label="Região" value={data.region || "Não encontrado"} />
+            <Info label="Cidade" value={data.city || "Não encontrado"} />
             <Info
               label="Latitude / Longitude"
-              value={`${data.latitude} ${data.longitude}` || "Não Encontrado"}
+              value={`${data.latitude} ${data.longitude}` || "Não encontrado"}
             />
-            <Info label="Timezone" value={data.timezone || "Não Encontrado"} />
             <Info
-              label="Postal Code"
-              value={data.postalCode || "Não Encontrado"}
+              label="Fuso Horário"
+              value={data.timezone || "Não encontrado"}
+            />
+            <Info
+              label="Código Postal"
+              value={data.postalCode || "Não encontrado"}
             />
           </div>
         </section>
-        <form className="search_container" onSubmit={handle_submit}>
-          <input
-            type="text"
-            placeholder="Enter IP address"
-            value={searchIp}
-            onChange={(e) => setSearchIp(e.target.value)}
-            required
-          />
-          <button type="submit">Find IP</button>
-        </form>
-        <section className="security_infos">
-          <h2>IP Security Status</h2>
 
-          <Info label="VPN" value={security_check(data.vpn)} />
-          <Info label="TOR" value={security_check(data.tor)} />
-          <Info label="Proxy" value={security_check(data.proxy)} />
-        </section>
+        <div className="secondary_infos">
+          <form className="search_container" onSubmit={handle_submit}>
+            <input
+              type="text"
+              placeholder="Digite um endereço IP"
+              value={searchIp}
+              onChange={(e) => setSearchIp(e.target.value)}
+              required
+            />
+            <button type="submit">Buscar IP</button>
+          </form>
+          <section className="security_infos">
+            <h2>Status de Segurança do IP</h2>
+
+            <Info label="VPN" value={security_check(data.vpn)} />
+            <Info label="TOR" value={security_check(data.tor)} />
+            <Info label="Proxy" value={security_check(data.proxy)} />
+          </section>
+        </div>
       </main>
     </>
   );

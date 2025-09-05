@@ -1,20 +1,20 @@
-@import url('https://fonts.googleapis.com/css2?family=Mulish:ital,wght@1,800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Mulish:ital,wght@1,800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
 
 :root {
-  --primary_color: #FF1457;
-  --body_bg_color: #2B2C30;
-  --input_bg: #35313B;
-  --locate_btn_bg: #613C4C;
-  --localization_container_bg: #35313B;
-  --white: #FFFFFF;
+  --primary_color: #ff1457;
+  --body_bg_color: #2b2c30;
+  --input_bg: #35313b;
+  --locate_btn_bg: #613c4c;
+  --localization_container_bg: #35313b;
+  --white: #ffffff;
   --containers_bg_color: #453745;
 
   --container_border_radius: 40px;
   --container_padding: 2rem;
 
-  --title_font_family: 'Mulish', sans-serif;
-  --body_font_family: 'Poppins', sans-serif;
+  --title_font_family: "Mulish", sans-serif;
+  --body_font_family: "Poppins", sans-serif;
 }
 
 * {
@@ -39,14 +39,14 @@ h1 {
 main {
   margin-top: 5rem;
   height: 38rem;
-  display: grid;
-  grid-template-rows: 175px 425px;
+  display: flex;
+  flex-wrap: wrap;
   gap: 1rem;
 }
 
 .main_infos {
-  grid-row-start: 1;
-  grid-row-end: 3;
+  width: 60rem;
+  flex: 1 1;
   background-color: var(--containers_bg_color);
   border-radius: var(--container_border_radius);
   padding: var(--container_padding);
@@ -55,66 +55,77 @@ main {
   justify-content: space-between;
 }
 
-.main_infos div {
+.main_infos .local_infos {
   padding: 1rem;
   background-color: var(--localization_container_bg);
   width: 100%;
-  height: calc(425px - 2rem);
-  border-radius: 20px;
+  height: fit-content !important;
+  border-radius: 1.2rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  margin-top: 1rem;
 }
 
-.main_infos h2 {
+.main_infos .local_infos h2 {
   display: flex;
   align-items: center;
   gap: 1rem;
   color: var(--white);
 }
 
-.main_infos svg {
+.main_infos .local_infos h2 svg {
   color: var(--primary_color);
 }
 
+.secondary_infos {
+  width: max(55rem, 100vw);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
 .search_container {
-  grid-row-start: 1;
-  grid-row-end: 2;
+  height: minmax(calc(20% - 0.5rem), fit-content);
   background-color: var(--containers_bg_color);
   border-radius: var(--container_border_radius);
   padding: 1rem;
   display: flex;
   align-items: center;
-  justify-content: space-between;
   flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.search_container input,
+.search_container button {
+  padding: 1rem 2rem;
 }
 
 .search_container input {
   border-radius: var(--container_border_radius);
-  width: 50%;
-  padding: 1rem;
-  height: 3.5rem;
   outline: none;
   border: none;
   color: var(--primary_color);
   background-color: var(--input_bg);
   font-size: 1rem;
-}
-
-.search_container input::placeholder {
-  color: var(--primary_color);
+  flex: 1;
 }
 
 .search_container button {
-  height: 3.5rem;
-  width: 45%;
   border-radius: var(--container_border_radius);
   border: none;
   background-color: var(--locate_btn_bg);
   color: var(--primary_color);
   font-size: 1.2rem;
   cursor: pointer;
-  transition: .4s;
+  transition: 0.4s;
+  flex: 1 1;
+}
+
+.search_container input::placeholder {
+  color: var(--primary_color);
 }
 
 .search_container button:hover {
@@ -123,6 +134,7 @@ main {
 }
 
 .security_infos {
+  height: calc(80% - 0.5rem);
   background-color: var(--containers_bg_color);
   border-radius: var(--container_border_radius);
   padding: var(--container_padding);
@@ -132,10 +144,6 @@ main {
   color: var(--white);
 }
 
-.local_infos {
-  margin-top: 1rem;
-}
-
 @media screen and (max-width: 992px) {
   body {
     padding: 0 !important;
@@ -143,24 +151,5 @@ main {
 
   h1 {
     text-align: center;
-  }
-
-  main {
-    display: flex !important;
-    flex-direction: column;
-  }
-
-  main section,
-  form {
-    width: 100% !important;
-  }
-
-  input,
-  button {
-    width: 100% !important;
-  }
-
-  button {
-    margin-top: 1rem;
   }
 }
