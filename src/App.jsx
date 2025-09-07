@@ -1,8 +1,26 @@
-import { FaLocationDot } from "react-icons/fa6";
+// Hooks
 import { useEffect, useState } from "react";
+
+// Components
 import Info from "./components/Info";
 
+// Utils
+import { FaLocationDot } from "react-icons/fa6";
 import "./App.css";
+
+// Leaflet
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import iconShadow from "leaflet/dist/images/marker-shadow.png";
+import icon from "leaflet/dist/images/marker-icon.png";
+import "leaflet/dist/leaflet.css";
+import L from "leaflet";
+
+let DefaultIcon = L.icon({
+  iconUrl: icon,
+  shadowUrl: iconShadow,
+});
+
+L.Marker.prototype.options.icon = DefaultIcon;
 
 function App() {
   const [searchIp, setSearchIp] = useState("");
@@ -95,6 +113,29 @@ function App() {
               label="Latitude / Longitude"
               value={`${data.latitude} ${data.longitude}` || "Não encontrado"}
             />
+            {data.latitude && data.longitude && (
+              <div
+                style={{ height: "25rem", width: "100%", marginTop: "1rem" }}
+              >
+                <MapContainer
+                  center={[data.latitude, data.longitude]}
+                  zoom={13}
+                  style={{ height: "100%", width: "100%" }}
+                  key={`${data.latitude}-${data.longitude}`}
+                >
+                  <TileLayer
+                    attribution='&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                  />
+                  <Marker position={[data.latitude, data.longitude]}>
+                    <Popup>
+                      {data.city}, {data.region}, {data.country}
+                    </Popup>
+                  </Marker>
+                </MapContainer>
+              </div>
+            )}
+
             <Info
               label="Fuso Horário"
               value={data.timezone || "Não encontrado"}

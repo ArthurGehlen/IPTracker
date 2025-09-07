@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Mulish:ital,wght@1,800&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+@import "leaflet/dist/leaflet.css";
 
 :root {
   --primary_color: #ff1457;
@@ -88,7 +89,8 @@ main {
 }
 
 .search_container {
-  height: minmax(calc(20% - 0.5rem), fit-content);
+  height: calc(20% - .5rem);
+  min-height: fit-content;
   background-color: var(--containers_bg_color);
   border-radius: var(--container_border_radius);
   padding: 1rem;
